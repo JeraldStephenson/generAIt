@@ -33,31 +33,31 @@ const routes = [
     color: 'text-sky-500',
   },
   {
-    label: 'Conversation',
+    label: 'Conversaition',
     icon: MessageSquare,
     href: '/dashboard',
     color: 'text-violet-500',
   },
   {
-    label: 'Image Generation',
+    label: 'Image Generaition',
     icon: ImageIcon,
     href: '/dashboard',
     color: 'text-pink-700',
   },
   {
-    label: 'Video Generation',
+    label: 'Video Generaition',
     icon: VideoIcon,
     href: '/dashboard',
     color: 'text-orange-500',
   },
   {
-    label: 'Music Generation',
+    label: 'Music Generaition',
     icon: Music,
     href: '/dashboard',
     color: 'text-emerald-500',
   },
   {
-    label: 'Code Generation',
+    label: 'Code Generaition',
     icon: Code,
     href: '/dashboard',
     color: 'text-green-700',
@@ -69,7 +69,26 @@ const routes = [
   },
 ];
 
-// const brandText = (string: string) => {};
+// applies branding to any string that contains 'ai'
+const brandText = (text: string) => {
+  const pattern = /ai/g;
+  let beforeAI = ""
+  let afterAI = ""
+
+  const match = pattern.exec(text);
+  if (match) {
+    beforeAI = text.slice(0, match.index);
+    afterAI = text.slice(match.index + match[0].length);
+
+    return (
+    <span>{beforeAI}<span className={cn('text-sky-500', sourceCodeProFont.className)}>AI</span>{afterAI}</span>
+      )
+  }
+ 
+  return text
+   
+   
+};
 
 const Sidebar = () => {
   return (
@@ -93,7 +112,7 @@ const Sidebar = () => {
             >
               <div className='flex items-center flex-1'>
                 <route.icon className={cn('h-5 w-5 mr-3', route.color)} />
-                {route.label}
+                {brandText(route.label)}
               </div>
             </Link>
           ))}
