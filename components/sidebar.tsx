@@ -69,8 +69,8 @@ const routes = [
 
 // applies branding to any string that contains 'ai'
 const brandText = (text: string) => {
-  text = text.toLowerCase()
-  const pattern = /ai/g;
+  
+  const pattern = /ai/gi;
   let beforeAI = ""
   let afterAI = ""
 
@@ -80,7 +80,7 @@ const brandText = (text: string) => {
     afterAI = text.slice(match.index + match[0].length);
 
     return (
-    <span>{beforeAI}<span className={cn('text-sky-500', sourceCodeProFont.className)}>AI</span>{afterAI}</span>
+    <span className='group'>{beforeAI}<span className={cn('text-sky-500  group-hover:text-sky-400', sourceCodeProFont.className)}>AI</span>{afterAI}</span>
       )
   }
  
@@ -101,7 +101,8 @@ const Sidebar = () => {
            {brandText('AI')}
           </div>
           <h1 className={cn('text-2xl font-bold', sourceCodeProFont.className)}>
-            Gener<span className='text-sky-500 '>AI</span>t
+            {/* Gener<span className='text-sky-500 '>AI</span>t */}
+            {brandText('GenerAIt')}
           </h1>
         </Link>
         <div className='space-y-1'>
