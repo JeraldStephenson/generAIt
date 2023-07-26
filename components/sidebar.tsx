@@ -35,37 +35,37 @@ const routes = [
   {
     label: 'Conversaition',
     icon: MessageSquare,
-    href: '/dashboard',
+    href: '/conversation',
     color: 'text-violet-500',
   },
   {
     label: 'Image Generaition',
     icon: ImageIcon,
-    href: '/dashboard',
+    href: '/image',
     color: 'text-pink-700',
   },
   {
     label: 'Video Generaition',
     icon: VideoIcon,
-    href: '/dashboard',
+    href: '/video',
     color: 'text-orange-500',
   },
   {
     label: 'Music Generaition',
     icon: Music,
-    href: '/dashboard',
+    href: '/music',
     color: 'text-emerald-500',
   },
   {
     label: 'Code Generaition',
     icon: Code,
-    href: '/dashboard',
+    href: '/code',
     color: 'text-green-700',
   },
   {
     label: 'Settings',
     icon: Settings,
-    href: '/dashboard',
+    href: '/settings',
   },
 ];
 
