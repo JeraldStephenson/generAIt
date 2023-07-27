@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation'
 
-import { cn } from '@/lib/utils';
+import { cn, brandText } from '@/lib/utils';
 import {
   Code,
   ImageIcon,
@@ -68,26 +68,25 @@ const routes = [
 ];
 
 // applies branding to any string that contains 'ai'
-const brandText = (text: string) => {
+// const brandText = (text: string) => {
   
-  const pattern = /ai/gi;
-  let beforeAI = ""
-  let afterAI = ""
+//   const pattern = /ai/gi;
+//   let beforeAI = ""
+//   let afterAI = ""
 
-  const match = pattern.exec(text);
-  if (match) {
-    beforeAI = text.slice(0, match.index);
-    afterAI = text.slice(match.index + match[0].length);
+//   const match = pattern.exec(text);
+//   if (match) {
+//     beforeAI = text.slice(0, match.index);
+//     afterAI = text.slice(match.index + match[0].length);
 
-    return (
-    <span className='group'>{beforeAI}<span className={cn('text-sky-500  group-hover:text-sky-400', sourceCodeProFont.className)}>AI</span>{afterAI}</span>
-      )
-  }
+//     return (
+//     <span className='group'>{beforeAI}<span className={cn('text-sky-500  group-hover:text-sky-400', sourceCodeProFont.className)}>AI</span>{afterAI}</span>
+//       )
+//   }
  
-  return text
+//   return text
    
-   
-};
+// };
 
 const Sidebar = () => { 
   const pathname = usePathname();
