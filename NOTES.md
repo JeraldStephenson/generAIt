@@ -13,4 +13,5 @@
 <li>apply style & design to generation pages if applicable</li>
 <li>custom branded loading states/styles</li>
 <li>light mode & dark mode?</li>
+<li>add type safety / validation to local environments similar to T3 app</li>
 </ul>
