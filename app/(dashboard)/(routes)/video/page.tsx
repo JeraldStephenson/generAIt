@@ -1,7 +1,5 @@
 const VideoPage = () => {
-    return (
-        <div>Hello Image Generator</div>
-    )
-}
+  return <div>Hello Video Generator</div>;
+};
 
 export default VideoPage;
