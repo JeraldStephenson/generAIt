@@ -8,15 +8,16 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { ChatCompletionRequestMessage } from 'openai';
-
-import { Heading } from '@/components/heading';
-import { formSchema } from './constants';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { brandText } from '@/lib/utils';
 
+
+import { formSchema } from './constants';
+import { brandText } from '@/lib/utils';
+import { Heading } from '@/components/heading';
 import { Empty } from '@/components/empty';
+import { Loader } from '@/components/loader';
 
 const ConversationPage = () => {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
@@ -97,6 +98,12 @@ const ConversationPage = () => {
           </Form>
         </div>
         <div className='space-y-4 mt-4'>
+          {/* change isLoading to true to view what loading state looks like */}
+          {isLoading && (
+            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+              <Loader />
+            </div>
+          )}
           {messages.length === 0 && !isLoading && (
             <Empty label='No conversation started.' />
           )}
