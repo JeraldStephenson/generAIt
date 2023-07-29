@@ -18,6 +18,8 @@ import { brandText, cn } from '@/lib/utils';
 import { Heading } from '@/components/heading';
 import { Empty } from '@/components/empty';
 import { Loader } from '@/components/loader';
+import { UserAvatar } from '@/components/user-avatar';
+import { BotAvatar } from '@/components/bot-avatar';
 
 const ConversationPage = () => {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
@@ -113,9 +115,15 @@ const ConversationPage = () => {
                key={message.content}
                className={cn(
                 'p-8 w-full flex items-start gap-x-8 rounded-lg',
+                // styled user chat box vs ai chat box
                 message.role === 'user' ? 'bg.white border border-black/10' : 'bg-muted'
                )}
-              >{message.content}</div>
+              >
+                {message.role === 'user' ? <UserAvatar /> : <BotAvatar /> }
+                <p className='text-sm'>
+                  {message.content}
+                </p>
+              </div>
             ))}
           </div>
         </div>
