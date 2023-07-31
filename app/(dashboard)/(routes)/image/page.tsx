@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-import { amountOptions, formSchema } from './constants';
+import { amountOptions, formSchema, resolutionOptions } from './constants';
 import { brandText, cn } from '@/lib/utils';
 import { Heading } from '@/components/heading';
 import { Empty } from '@/components/empty';
@@ -78,7 +78,7 @@ const ImagePage = () => {
               <FormField
                 name='prompt'
                 render={({ field }) => (
-                  <FormItem className='col-span-12 lg:col-span-10'>
+                  <FormItem className='col-span-12 lg:col-span-6'>
                     <FormControl className='m-0 p-0'>
                       <Input
                         className='border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
@@ -91,6 +91,7 @@ const ImagePage = () => {
                 )}
               />
               <FormField 
+              name='amount'
               control={form.control}
               render={({field}) => (
                 <FormItem className='col-span-12 lg:col-span-2'>
@@ -104,6 +105,7 @@ const ImagePage = () => {
                       <SelectTrigger>
                         <SelectValue defaultValue={field.value}/>
                       </SelectTrigger>
+
                     </FormControl>
                     <SelectContent>
                       {amountOptions.map((option) => (
@@ -115,7 +117,36 @@ const ImagePage = () => {
                   </Select>
                 </FormItem>
               )}
-              name='amount'/>
+             />
+             <FormField 
+              name='resolution'
+              control={form.control}
+              render={({field}) => (
+                <FormItem className='col-span-12 lg:col-span-2'>
+                  <Select
+                  disabled={isLoading}
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue defaultValue={field.value}/>
+                      </SelectTrigger>
+
+                    </FormControl>
+                    <SelectContent>
+                      {resolutionOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+             />
+             
               
               <Button
                 className='col-span-12 lg:col-span-2 w-full'
@@ -128,7 +159,7 @@ const ImagePage = () => {
         </div>
         <div className='space-y-4 mt-4'>
           {/* change isLoading to true to view what loading state looks like */}
-          {true && (
+          {isLoading && (
             <div className="p-20">
               <Loader />
             </div>
