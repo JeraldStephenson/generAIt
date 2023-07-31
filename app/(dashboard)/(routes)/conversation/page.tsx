@@ -62,7 +62,7 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title='Conversation'
+        title='Conversaition'
         description='What would you like to know?'
         icon={MessageSquare}
         iconColor='text-violet-500'
@@ -83,7 +83,7 @@ const ConversationPage = () => {
                       <Input
                         className='border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
                         disabled={isLoading}
-                        placeholder='Ask the AI a question.'
+                        placeholder='Example prompt: What are the benefits of Next.js?'
                         {...field}
                       />
                     </FormControl>
