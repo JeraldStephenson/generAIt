@@ -1,7 +1,7 @@
 <h2>TODO Items <h2>
 <ul>
-<li>connect open-ap API</li>
-<li>AI chat generation</li>
+
+<li>BotAvatar needs a cropped zoomed in face image</li>
 <li>AI image generation</li>
 <li>AI video generation</li>
 <li>AI music generation</li>

@@ -83,7 +83,7 @@ const ConversationPage = () => {
                       <Input
                         className='border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
                         disabled={isLoading}
-                        placeholder='Example prompt: What are the benefits of Next.js?'
+                        placeholder='Example question: What are the benefits of Next.js?'
                         {...field}
                       />
                     </FormControl>
