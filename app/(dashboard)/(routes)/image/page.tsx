@@ -7,7 +7,7 @@ import { ImageIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { ChatCompletionRequestMessage } from 'openai';
+
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -22,7 +22,7 @@ import { UserAvatar } from '@/components/user-avatar';
 import { BotAvatar } from '@/components/bot-avatar';
 
 const ImagePage = () => {
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,20 +35,8 @@ const ImagePage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = {
-        role: 'user',
-        content: values.prompt,
-      };
-      const newMessages = [...messages, userMessage];
 
-      const response = await axios.post('/api/Image', {
-        messages: newMessages,
-      });
-
-      setMessages((current) => {
-        return [...current, userMessage, response.data];
-      });
-
+      const response = await axios.post('/api/conversation');
       form.reset();
     } catch (error: any) {
       // TODO: Open Modal to allow purchase of premium access
@@ -60,6 +48,7 @@ const ImagePage = () => {
   };
 
   return (
+
     <div>
       <Heading
         title='Image Generaition'
@@ -101,31 +90,15 @@ const ImagePage = () => {
         </div>
         <div className='space-y-4 mt-4'>
           {/* change isLoading to true to view what loading state looks like */}
-          {isLoading && (
-            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+          {true && (
+            <div className="p-20">
               <Loader />
             </div>
           )}
-          {messages.length === 0 && !isLoading && (
+          {images.length === 0 && !isLoading && (
             <Empty label='Awaiting instructions...' />
           )}
-          <div className='flex flex-col-reverse gap-y-4'>
-            {messages.map((message) => (
-              <div
-               key={message.content}
-               className={cn(
-                'p-8 w-full flex items-start gap-x-8 rounded-lg',
-                // styled user chat box vs ai chat box
-                message.role === 'user' ? 'bg.white border border-black/10' : 'bg-muted'
-               )}
-              >
-                {message.role === 'user' ? <UserAvatar /> : <BotAvatar /> }
-                <p className='text-sm'>
-                  {message.content}
-                </p>
-              </div>
-            ))}
-          </div>
+         <div>Images will be rendered here</div>
         </div>
       </div>
     </div>
