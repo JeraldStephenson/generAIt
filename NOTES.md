@@ -2,7 +2,7 @@
 <ul>
 
 <li>BotAvatar needs a cropped zoomed in face image</li>
-<li>AI image generation</li>
+
 <li>AI video generation</li>
 <li>AI music generation</li>
 <li>AI code generation</li>
