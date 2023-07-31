@@ -11,15 +11,14 @@ import { useRouter } from 'next/navigation';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-
-import { formSchema } from './constants';
+import { amountOptions, formSchema } from './constants';
 import { brandText, cn } from '@/lib/utils';
 import { Heading } from '@/components/heading';
 import { Empty } from '@/components/empty';
 import { Loader } from '@/components/loader';
-import { UserAvatar } from '@/components/user-avatar';
-import { BotAvatar } from '@/components/bot-avatar';
+
 
 const ImagePage = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -28,6 +27,8 @@ const ImagePage = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       prompt: '',
+      amount: '1',
+      resolution: '512x512',
     },
   });
 
@@ -35,8 +36,18 @@ const ImagePage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      // reset images - TODO save previous images before reset for user to access somewhere
+      // can also modify to allow for additional images to be generated and added to images[] state and allow scrolling through them
+        //if doing the above may want to only do this / group the images by prompt
+      setImages([]);
 
-      const response = await axios.post('/api/conversation');
+      // values will be modified on server
+      const response = await axios.post('/api/image', values);
+
+      const urls = response.data.map((image: {url: string}) => image.url)
+
+      setImages(urls)
+
       form.reset();
     } catch (error: any) {
       // TODO: Open Modal to allow purchase of premium access
@@ -79,6 +90,33 @@ const ImagePage = () => {
                   </FormItem>
                 )}
               />
+              <FormField 
+              control={form.control}
+              render={({field}) => (
+                <FormItem className='col-span-12 lg:col-span-2'>
+                  <Select
+                  disabled={isLoading}
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue defaultValue={field.value}/>
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {amountOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+              name='amount'/>
+              
               <Button
                 className='col-span-12 lg:col-span-2 w-full'
                 disabled={isLoading}
