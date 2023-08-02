@@ -3,8 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation'
-
-import { cn, brandText } from '@/lib/utils';
+import { Source_Code_Pro } from 'next/font/google';
 import {
   Code,
   ImageIcon,
@@ -14,9 +13,9 @@ import {
   Settings,
   VideoIcon,
 } from 'lucide-react';
-import {
-  Source_Code_Pro,
-} from 'next/font/google';
+
+import { cn, brandText } from '@/lib/utils';
+import { FreeCounter } from '@/components/free-counter';
 
 const sourceCodeProFont = Source_Code_Pro({
   weight: '600',
@@ -88,8 +87,13 @@ const routes = [
    
 // };
 
-const Sidebar = () => { 
+interface SidebarProps {
+  apiLimitCount: number;
+}
+
+const Sidebar = ({apiLimitCount = 0}: SidebarProps) => { 
   const pathname = usePathname();
+
   return (
     <div className='space-y-4 py-4 flex flex-col h-full bg-[#111827] text-white'>
       <div className='px-3 py-2 flex-1'>
@@ -119,6 +123,9 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
+      <FreeCounter 
+        apiLimitCount={apiLimitCount}
+      />
     </div>
   );
 };
