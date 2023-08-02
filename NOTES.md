@@ -3,10 +3,10 @@
 
 <li>BotAvatar needs a cropped zoomed in face image</li>
 
-<li>AI video generation</li>
-<li>AI music generation</li>
-<li>AI code generation</li>
-<li>save generated items to a user's account history to access in future?</li>
+<li>Throttle on button submits?</li>
+<li>Debouncing on button suibmits</li>
+<li>save generated items to a user's account history to access in future? save images to an s3?</li>
+
 <br>
 <li>create more a defined brand - AI? robots? funny?</li>
 <li>design & stylized dashboard with new theme in mind</li>
