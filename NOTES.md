@@ -16,4 +16,5 @@
 <li>Save/cache responses for a certain page feature that way if you generate on another page you can return and still see past generated code on previous pages for a session</li>
 <li>light mode & dark mode?</li>
 <li>add type safety / validation to local environments similar to T3 app</li>
+<li>look into webhooks for replicate AI APIs for better user experience that assist with the terrible cold starts</li>
 </ul>
