@@ -55,6 +55,7 @@ const ConversationPage = () => {
       console.log(error);
     } finally {
       // refresh the router so that all server components are going to update
+      //our post req onSubmit fires off middleware that updates the DB of user's count free-uses left so updating/rehydrating all server components is needed to have the latest DB info to pass down to client components
       router.refresh();
     }
   };
@@ -91,7 +92,7 @@ const ConversationPage = () => {
                 )}
               />
               <Button
-                className='col-span-12 lg:col-span-2 w-full'
+                className={'col-span-12 lg:col-span-2 w-full bg-[#111827]'}
                 disabled={isLoading}
               >
                 {brandText('Generait')}
