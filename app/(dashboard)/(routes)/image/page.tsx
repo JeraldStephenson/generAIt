@@ -153,7 +153,7 @@ const ImagePage = () => {
              
               
               <Button
-                className='col-span-12 lg:col-span-2 w-full'
+                className='col-span-12 lg:col-span-2 w-full bg-[#111827]'
                 disabled={isLoading}
               >
                 {brandText('Generait')}
