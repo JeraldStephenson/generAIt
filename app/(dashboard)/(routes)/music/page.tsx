@@ -18,11 +18,14 @@ import { brandText, cn } from '@/lib/utils';
 import { Heading } from '@/components/heading';
 import { Empty } from '@/components/empty';
 import { Loader } from '@/components/loader';
+import { useProModal } from '@/hooks/use-pro-modal';
 
 
 const MusicPage = () => {
   const [music, setMusic] = useState<string>();
   const router = useRouter();
+  const proModal = useProModal()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,8 +45,9 @@ const MusicPage = () => {
 
       form.reset();
     } catch (error: any) {
-      // TODO: Open Modal to allow purchase of premium access
-      console.log(error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       // refresh the router so that all server components are going to update
       router.refresh();
