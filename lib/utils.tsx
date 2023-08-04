@@ -30,5 +30,9 @@ const sourceCodeProFont = Source_Code_Pro({
   }
   return text
 };
+
+function absoluteUrl(path: string) {
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
+}
  
 export {cn, brandText}
