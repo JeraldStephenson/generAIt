@@ -3,12 +3,16 @@
 import {
     Dialog, 
     DialogContent,
+    DialogDescription,
     DialogHeader,
     DialogTitle
  } from "@/components/ui/dialog"
 import { useProModal } from "@/hooks/use-pro-modal"
-import { brandText } from "@/lib/utils"
+import { brandText, cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
+
+import { featureList } from "@/lib/features-list-styles"
+import { Card } from "@/components/ui/card"
 
 export const ProModal = () => {
     const proModal = useProModal()
@@ -25,6 +29,20 @@ export const ProModal = () => {
                    </Badge>
                 </div>
                 </DialogTitle>
+                <DialogDescription className="text-center pt-2 space-y-2 text-zinc-900 font-medium">
+                    {featureList.map((feature) => (
+                        <Card
+                        key={feature.label}
+                        className="p-3 border-black/5 flex items-center justify-between"
+                        >
+                            <div className="flex items-center gap-x-4">
+                                <div className={cn('p-2 w-fit rounded-md', feature.bgColor )}>
+                                    <feature.icon className={cn('w-6 h-6', feature.color)}/>
+                                </div>
+                            </div>
+                        </Card>
+                    ))}
+                </DialogDescription>
             </DialogHeader>
         </DialogContent>
        </Dialog>

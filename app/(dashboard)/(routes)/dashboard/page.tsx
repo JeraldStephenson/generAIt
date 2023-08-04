@@ -1,58 +1,15 @@
 'use client';
+import { ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { Card } from '@/components/ui/card';
 import { cn, brandText } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
-import {
-  ArrowRight,
-  Code,
-  ImageIcon,
-  MessageSquare,
-  Music,
-  VideoIcon,
-} from 'lucide-react';
+import { featureList } from '@/lib/features-list-styles';
 
-const tools = [
-  {
-    label: 'Conversaition',
-    icon: MessageSquare,
-    color: 'text-violet-500',
-    bgColor: 'bg-violet-500/10',
-    href: '/conversation',
-  },
-
-  {
-    label: 'Image Generaition',
-    icon: ImageIcon,
-    color: 'text-pink-700',
-    bgColor: 'bg-pink-700/10',
-    href: '/image',
-  },
-  {
-    label: 'Video Generaition',
-    icon: VideoIcon,
-    color: 'text-orange-700',
-    bgColor: 'bg-orange-700/10',
-    href: '/video',
-  },
-  {
-    label: 'Music Generaition',
-    icon: Music,
-    color: 'text-emerald-500',
-    bgColor: 'bg-emerald-500/10',
-    href: '/music',
-  },
-  {
-    label: 'Code Generaition',
-    icon: Code,
-    color: 'text-green-700',
-    bgColor: 'bg-green-700/10',
-    href: '/code',
-  },
-];
 
 export default function DashboardPage() {
   const router = useRouter();
+
   return (
     <div>
       <div className='mb-8 space-y-4'>
@@ -64,17 +21,17 @@ export default function DashboardPage() {
         </p>
       </div>
       <div className='px-4 md:px-20 lg:px-32 space-y-4'>
-        {tools.map((tool) => (
+        {featureList.map((feature) => (
           <Card
-            key={tool.href}
-            onClick={() => router.push(tool.href)}
+            key={feature.href}
+            onClick={() => router.push(feature.href)}
             className='p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer bg-[#111827]/5'
           >
             <div className='flex items-center gap-x-4'>
-              <div className={cn('p-2 w-fit rounded-md', tool.bgColor)}>
-                <tool.icon className={cn('w-8 h-8', tool.color)} />
+              <div className={cn('p-2 w-fit rounded-md', feature.bgColor)}>
+                <feature.icon className={cn('w-8 h-8', feature.color)} />
               </div>
-              <div className='font-semibold'>{brandText(tool.label)}</div>
+              <div className='font-semibold'>{brandText(feature.label)}</div>
             </div>
             <ArrowRight className='w-5 h-5' />
           </Card>
