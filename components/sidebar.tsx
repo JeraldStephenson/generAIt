@@ -66,27 +66,6 @@ const routes = [
   },
 ];
 
-// applies branding to any string that contains 'ai'
-// const brandText = (text: string) => {
-  
-//   const pattern = /ai/gi;
-//   let beforeAI = ""
-//   let afterAI = ""
-
-//   const match = pattern.exec(text);
-//   if (match) {
-//     beforeAI = text.slice(0, match.index);
-//     afterAI = text.slice(match.index + match[0].length);
-
-//     return (
-//     <span className='group'>{beforeAI}<span className={cn('text-sky-500  group-hover:text-sky-400', sourceCodeProFont.className)}>AI</span>{afterAI}</span>
-//       )
-//   }
- 
-//   return text
-   
-// };
-
 interface SidebarProps {
   apiLimitCount: number;
 }
