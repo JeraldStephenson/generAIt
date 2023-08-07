@@ -1,11 +1,10 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { Source_Code_Pro } from 'next/font/google';
 
- function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
-
 
 const sourceCodeProFont = Source_Code_Pro({
   weight: '600',
@@ -13,11 +12,10 @@ const sourceCodeProFont = Source_Code_Pro({
 });
 
 // applies branding to any string that contains 'ai'
- const brandText = (text: string) => {
-  
+const brandText = (text: string) => {
   const pattern = /ai/gi;
-  let beforeAI = ""
-  let afterAI = ""
+  let beforeAI = '';
+  let afterAI = '';
 
   const match = pattern.exec(text);
   if (match) {
@@ -25,14 +23,25 @@ const sourceCodeProFont = Source_Code_Pro({
     afterAI = text.slice(match.index + match[0].length);
 
     return (
-      <span className='group'>{beforeAI}<span className={cn('text-sky-500  group-hover:text-sky-400', sourceCodeProFont.className)}>AI</span>{afterAI}</span>
-        )
+      <span className='group'>
+        {beforeAI}
+        <span
+          className={cn(
+            'text-sky-500  group-hover:text-sky-400',
+            sourceCodeProFont.className
+          )}
+        >
+          AI
+        </span>
+        {afterAI}
+      </span>
+    );
   }
-  return text
+  return text;
 };
 
 function absoluteUrl(path: string) {
-  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
 }
- 
-export {cn, brandText}
+
+export { cn, brandText, absoluteUrl };
