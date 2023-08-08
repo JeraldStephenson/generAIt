@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import {usePathname} from 'next/navigation'
+import { usePathname } from 'next/navigation';
 import { Source_Code_Pro } from 'next/font/google';
 import {
   Code,
@@ -68,9 +68,10 @@ const routes = [
 
 interface SidebarProps {
   apiLimitCount: number;
+  isPro: boolean;
 }
 
-const Sidebar = ({apiLimitCount = 0}: SidebarProps) => { 
+const Sidebar = ({ apiLimitCount = 0, isPro = false }: SidebarProps) => {
   const pathname = usePathname();
 
   return (
@@ -80,7 +81,7 @@ const Sidebar = ({apiLimitCount = 0}: SidebarProps) => {
           <div className='relative w-8 h-8 mr-4'>
             {/* Need to design and add logo and import from  public */}
             {/* <Image fill alt='Logo' src='/logo.png' /> */}
-           {brandText('AI')}
+            {brandText('AI')}
           </div>
           <h1 className={cn('text-2xl font-bold', sourceCodeProFont.className)}>
             {/* Gener<span className='text-sky-500 '>AI</span>t */}
@@ -92,7 +93,12 @@ const Sidebar = ({apiLimitCount = 0}: SidebarProps) => {
             <Link
               href={route.href}
               key={route.href}
-              className={cn('text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition', pathname === route.href ? 'text-white bg-white/10' : 'text-zinc-400')}
+              className={cn(
+                'text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition',
+                pathname === route.href
+                  ? 'text-white bg-white/10'
+                  : 'text-zinc-400'
+              )}
             >
               <div className='flex items-center flex-1'>
                 <route.icon className={cn('h-5 w-5 mr-3', route.color)} />
@@ -102,9 +108,7 @@ const Sidebar = ({apiLimitCount = 0}: SidebarProps) => {
           ))}
         </div>
       </div>
-      <FreeCounter 
-        apiLimitCount={apiLimitCount}
-      />
+      <FreeCounter isPro={isPro} apiLimitCount={apiLimitCount} />
     </div>
   );
 };
