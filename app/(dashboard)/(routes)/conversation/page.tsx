@@ -11,7 +11,7 @@ import { ChatCompletionRequestMessage } from 'openai';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
+import { toast } from 'react-hot-toast';
 
 import { formSchema } from './constants';
 import { brandText, cn } from '@/lib/utils';
@@ -38,6 +38,7 @@ const ConversationPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      
       const userMessage: ChatCompletionRequestMessage = {
         role: 'user',
         content: values.prompt,
@@ -56,6 +57,8 @@ const ConversationPage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
+      } else {
+        toast.error('Something went wrong.');
       }
     } finally {
       // refresh the router so that all server components are going to update
@@ -107,7 +110,7 @@ const ConversationPage = () => {
         <div className='space-y-4 mt-4'>
           {/* change isLoading to true to view what loading state looks like */}
           {isLoading && (
-            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+            <div className='p-8 rounded-lg w-full flex items-center justify-center bg-muted'>
               <Loader />
             </div>
           )}
@@ -117,17 +120,17 @@ const ConversationPage = () => {
           <div className='flex flex-col-reverse gap-y-4'>
             {messages.map((message) => (
               <div
-               key={message.content}
-               className={cn(
-                'p-8 w-full flex items-start gap-x-8 rounded-lg',
-                // styled user chat box vs ai chat box
-                message.role === 'user' ? 'bg.white border border-black/10' : 'bg-muted'
-               )}
+                key={message.content}
+                className={cn(
+                  'p-8 w-full flex items-start gap-x-8 rounded-lg',
+                  // styled user chat box vs ai chat box
+                  message.role === 'user'
+                    ? 'bg.white border border-black/10'
+                    : 'bg-muted'
+                )}
               >
-                {message.role === 'user' ? <UserAvatar /> : <BotAvatar /> }
-                <p className='text-sm'>
-                  {message.content}
-                </p>
+                {message.role === 'user' ? <UserAvatar /> : <BotAvatar />}
+                <p className='text-sm'>{message.content}</p>
               </div>
             ))}
           </div>

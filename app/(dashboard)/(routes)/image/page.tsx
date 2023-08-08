@@ -8,12 +8,19 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardFooter } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 import { amountOptions, formSchema, resolutionOptions } from './constants';
 import { brandText, cn } from '@/lib/utils';
@@ -22,13 +29,10 @@ import { Empty } from '@/components/empty';
 import { Loader } from '@/components/loader';
 import { useProModal } from '@/hooks/use-pro-modal';
 
-
-
-
 const ImagePage = () => {
   const [images, setImages] = useState<string[]>([]);
   const router = useRouter();
-  const proModal = useProModal()
+  const proModal = useProModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,20 +49,22 @@ const ImagePage = () => {
     try {
       // reset images - TODO save previous images before reset for user to access somewhere
       // can also modify to allow for additional images to be generated and added to images[] state and allow scrolling through them
-        //if doing the above may want to only do this / group the images by prompt
+      //if doing the above may want to only do this / group the images by prompt
       setImages([]);
 
       // values will be modified on server
       const response = await axios.post('/api/image', values);
 
-      const urls = response.data.map((image: {url: string}) => image.url)
+      const urls = response.data.map((image: { url: string }) => image.url);
 
-      setImages(urls)
+      setImages(urls);
 
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
+      } else {
+        toast.error('Something went wrong.');
       }
     } finally {
       // refresh the router so that all server components are going to update
@@ -67,7 +73,6 @@ const ImagePage = () => {
   };
 
   return (
-
     <div>
       <Heading
         title='Image Generaition'
@@ -98,64 +103,61 @@ const ImagePage = () => {
                   </FormItem>
                 )}
               />
-              <FormField 
-              name='amount'
-              control={form.control}
-              render={({field}) => (
-                <FormItem className='col-span-12 lg:col-span-2'>
-                  <Select
-                  disabled={isLoading}
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue defaultValue={field.value}/>
-                      </SelectTrigger>
+              <FormField
+                name='amount'
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem className='col-span-12 lg:col-span-2'>
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue defaultValue={field.value} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {amountOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name='resolution'
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem className='col-span-12 lg:col-span-2'>
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue defaultValue={field.value} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {resolutionOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
 
-                    </FormControl>
-                    <SelectContent>
-                      {amountOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-             />
-             <FormField 
-              name='resolution'
-              control={form.control}
-              render={({field}) => (
-                <FormItem className='col-span-12 lg:col-span-2'>
-                  <Select
-                  disabled={isLoading}
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue defaultValue={field.value}/>
-                      </SelectTrigger>
-
-                    </FormControl>
-                    <SelectContent>
-                      {resolutionOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-             />
-             
-              
               <Button
                 className='col-span-12 lg:col-span-2 w-full bg-[#111827]'
                 disabled={isLoading}
@@ -168,39 +170,32 @@ const ImagePage = () => {
         <div className='space-y-4 mt-4'>
           {/* change isLoading to true to view what loading state looks like */}
           {isLoading && (
-            <div className="p-20">
+            <div className='p-20'>
               <Loader />
             </div>
           )}
           {images.length === 0 && !isLoading && (
             <Empty label='Awaiting instructions...' />
           )}
-         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8'>
-          {images.map((src) => (
-            <Card 
-            key={src}
-            className='rounded-lg overflow-hidden'
-            >
-              <div className='relative aspect-square'>
-              <Image 
-              alt='Image'
-              fill
-              src={src}
-              />
-              </div>
-              <CardFooter className='p-2'>
-                <Button 
-                variant='secondary' 
-                className='w-full'
-                onClick={() => window.open(src)}
-                >
-                  <Download className='h-4 w-4 mr-2'/>
-                  Download
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-         </div>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8'>
+            {images.map((src) => (
+              <Card key={src} className='rounded-lg overflow-hidden'>
+                <div className='relative aspect-square'>
+                  <Image alt='Image' fill src={src} />
+                </div>
+                <CardFooter className='p-2'>
+                  <Button
+                    variant='secondary'
+                    className='w-full'
+                    onClick={() => window.open(src)}
+                  >
+                    <Download className='h-4 w-4 mr-2' />
+                    Download
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>

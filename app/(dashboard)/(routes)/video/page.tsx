@@ -7,11 +7,11 @@ import { VideoIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
 
 import { formSchema } from './constants';
 import { brandText, cn } from '@/lib/utils';
@@ -20,11 +20,10 @@ import { Empty } from '@/components/empty';
 import { Loader } from '@/components/loader';
 import { useProModal } from '@/hooks/use-pro-modal';
 
-
 const VideoPage = () => {
   const [video, setVideo] = useState<string>();
   const router = useRouter();
-  const proModal = useProModal()
+  const proModal = useProModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,9 +36,9 @@ const VideoPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      setVideo(undefined)
+      setVideo(undefined);
 
-      const response = await axios.post('/api/video', values)
+      const response = await axios.post('/api/video', values);
 
       setVideo(response.data[0]);
 
@@ -47,6 +46,8 @@ const VideoPage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
+      } else {
+        toast.error('Something went wrong.');
       }
     } finally {
       // refresh the router so that all server components are going to update
@@ -78,7 +79,7 @@ const VideoPage = () => {
                       <Input
                         className='border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
                         disabled={isLoading}
-                        placeholder="Example prompt: Goats grazing on a mountain side"
+                        placeholder='Example prompt: Goats grazing on a mountain side'
                         {...field}
                       />
                     </FormControl>
@@ -97,18 +98,19 @@ const VideoPage = () => {
         <div className='space-y-4 mt-4'>
           {/* change isLoading to true to view what loading state looks like */}
           {isLoading && (
-            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+            <div className='p-8 rounded-lg w-full flex items-center justify-center bg-muted'>
               <Loader />
             </div>
           )}
-          {!video && !isLoading && (
-            <Empty label='No video generated.' />
-          )}
-        {video && (
-            <video className='w-full aspect-video mt-8 rounded-lg border bg-black' controls>
+          {!video && !isLoading && <Empty label='No video generated.' />}
+          {video && (
+            <video
+              className='w-full aspect-video mt-8 rounded-lg border bg-black'
+              controls
+            >
               <source src={video} />
             </video>
-        )}
+          )}
         </div>
       </div>
     </div>

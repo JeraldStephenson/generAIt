@@ -7,11 +7,11 @@ import { Music } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
 
 import { formSchema } from './constants';
 import { brandText, cn } from '@/lib/utils';
@@ -20,11 +20,10 @@ import { Empty } from '@/components/empty';
 import { Loader } from '@/components/loader';
 import { useProModal } from '@/hooks/use-pro-modal';
 
-
 const MusicPage = () => {
   const [music, setMusic] = useState<string>();
   const router = useRouter();
-  const proModal = useProModal()
+  const proModal = useProModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,9 +36,9 @@ const MusicPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      setMusic(undefined)
+      setMusic(undefined);
 
-      const response = await axios.post('/api/music', values)
+      const response = await axios.post('/api/music', values);
 
       setMusic(response.data.audio);
 
@@ -47,6 +46,8 @@ const MusicPage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
+      } else {
+        toast.error('Something went wrong.');
       }
     } finally {
       // refresh the router so that all server components are going to update
@@ -97,18 +98,16 @@ const MusicPage = () => {
         <div className='space-y-4 mt-4'>
           {/* change isLoading to true to view what loading state looks like */}
           {isLoading && (
-            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+            <div className='p-8 rounded-lg w-full flex items-center justify-center bg-muted'>
               <Loader />
             </div>
           )}
-          {!music && !isLoading && (
-            <Empty label='No music generated.' />
-          )}
-        {music && (
+          {!music && !isLoading && <Empty label='No music generated.' />}
+          {music && (
             <audio controls className='w-full mt-8'>
-                <source src={music}/>
+              <source src={music} />
             </audio>
-        )}
+          )}
         </div>
       </div>
     </div>

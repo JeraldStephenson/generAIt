@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { ChatCompletionRequestMessage } from 'openai';
+import { toast } from 'react-hot-toast';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -26,7 +27,6 @@ const CodePage = () => {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   const router = useRouter();
   const proModal = useProModal();
-
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -57,6 +57,8 @@ const CodePage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
+      } else {
+        toast.error('Something went wrong.');
       }
     } finally {
       // refresh the router so that all server components are going to update
