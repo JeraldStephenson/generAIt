@@ -6,6 +6,7 @@
 <li>Throttle on button submits?</li>
 <li>Debouncing on button suibmits</li>
 <li>save generated items to a user's account history to access in future? save images to an s3?</li>
+<li>refactor suspense and data streaming into loading components/states for better UX</li>
 
 <br>
 <li>create more a defined brand - AI? robots? funny?</li>
