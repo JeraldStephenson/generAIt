@@ -3,6 +3,7 @@
 
 <li>BotAvatar needs a cropped zoomed in face image</li>
 <li>finish readme - add info on AI modules in use</li>
+<li>draw up systems/workflow diagram to add to readme that makes it clear how I architectured the app</li>
 <li>Throttle on button submits?</li>
 <li>Debouncing on button suibmits</li>
 <li>save generated items to a user's account history to access in future? save images to an s3?</li>
