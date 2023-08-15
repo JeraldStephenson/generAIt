@@ -1,6 +1,8 @@
 <h2>TODO Items <h2>
 <ul>
-
+<li>Need to do logo.png</li>
+<li>Need to do loading animation/loading state</li>
+<li>On landing page, if logged in or have current session changed 'get started' button in top right corner to continue to dashboard or something to that effect </li>
 <li>finish readme - add info on AI modules in use</li>
 <li>draw up systems/workflow diagram to add to readme that makes it clear how I architectured the app</li>
 <li>Throttle on button submits?</li>
