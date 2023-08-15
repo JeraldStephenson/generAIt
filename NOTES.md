@@ -1,7 +1,6 @@
 <h2>TODO Items <h2>
 <ul>
 
-<li>BotAvatar needs a cropped zoomed in face image</li>
 <li>finish readme - add info on AI modules in use</li>
 <li>draw up systems/workflow diagram to add to readme that makes it clear how I architectured the app</li>
 <li>Throttle on button submits?</li>
