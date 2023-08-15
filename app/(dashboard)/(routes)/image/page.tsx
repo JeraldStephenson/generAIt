@@ -147,8 +147,8 @@ const ImagePage = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {resolutionOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
+                        {resolutionOptions.map((option, index) => (
+                          <SelectItem key={index} value={option.value}>
                             {option.label}
                           </SelectItem>
                         ))}

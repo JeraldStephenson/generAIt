@@ -38,7 +38,6 @@ const ConversationPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      
       const userMessage: ChatCompletionRequestMessage = {
         role: 'user',
         content: values.prompt,
@@ -118,9 +117,9 @@ const ConversationPage = () => {
             <Empty label='No conversation started.' />
           )}
           <div className='flex flex-col-reverse gap-y-4'>
-            {messages.map((message) => (
+            {messages.map((message, index) => (
               <div
-                key={message.content}
+                key={index}
                 className={cn(
                   'p-8 w-full flex items-start gap-x-8 rounded-lg',
                   // styled user chat box vs ai chat box
