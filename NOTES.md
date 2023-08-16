@@ -3,12 +3,14 @@
 <li>Need to do logo.png</li>
 <li>Need to do loading animation/loading state</li>
 <li>On landing page, if logged in or have current session changed 'get started' button in top right corner to continue to dashboard or something to that effect </li>
+<li>On landing page, bottom of typewritter effect cuts off letters that dip, ie g on 'insightful'</li>
 <li>finish readme - add info on AI modules in use</li>
 <li>draw up systems/workflow diagram to add to readme that makes it clear how I architectured the app</li>
 <li>Throttle on button submits?</li>
 <li>Debouncing on button suibmits</li>
 <li>save generated items to a user's account history to access in future? save images to an s3?</li>
 <li>refactor suspense and data streaming into loading components/states for better UX</li>
+<li>Cookies pop-up? not needed? research this topic and how to handle for US & EU or if needed at all for my site in current state</li>
 
 <br>
 <li>create more a defined brand - AI? robots? funny?</li>
