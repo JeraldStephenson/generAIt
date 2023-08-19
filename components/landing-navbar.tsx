@@ -21,7 +21,7 @@ export const LandingNavbar = () => {
         <div className='relative h-8 w-8 mr-4'>
           {/* <Image fill alt='Logo' src='/logo.png' /> */}
         </div>
-        <h1 className={cn('text-2xl font-bold text-white', font.className)}>
+        <h1 className={cn('text-2xl font-bold text-white', font.className)} data-testid='app-name' >
           {brandText('GenerAIt')}
         </h1>
       </Link>
