@@ -18,10 +18,10 @@ export const LandingNavbar = () => {
   return (
     <nav className='p-4 bg-transparent flex items-center justify-between'>
       <Link href='/' className='flex items-center'>
-        <div className='relative h-8 w-8 mr-4'>
+        <div className='relative h-8 w-8 mr-4' data-testid='cypress-app-logo'>
           {/* <Image fill alt='Logo' src='/logo.png' /> */}
         </div>
-        <h1 className={cn('text-2xl font-bold text-white', font.className)} data-testid='app-name' >
+        <h1 className={cn('text-2xl font-bold text-white', font.className)} data-testid='cypress-app-name' >
           {brandText('GenerAIt')}
         </h1>
       </Link>
