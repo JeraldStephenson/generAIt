@@ -1,14 +1,16 @@
 <h2>TODO Items <h2>
 <ul>
 <li>testing branch works on windows PC but not on my macbook - have been blocked on issue for couple hours - this is perhaps where docker environment would have been useful. Will try fo solutions again in a couple days if not may look to setting up docker env to see if that solves issue.<li>
+<li>Throttle on button submits?</li>
+<li>draw up systems/workflow diagram to add to readme that makes it clear how I architectured the app</li>
 <br>
 <li>Need to do logo.png</li>
 <li>Need to do loading animation/loading state</li>
 <li>On landing page, if logged in or have current session changed 'get started' button in top right corner to continue to dashboard or something to that effect </li>
 <li>On landing page, bottom of typewritter effect cuts off letters that dip, ie g on 'insightful'</li>
 <li>finish readme - add info on AI modules in use</li>
-<li>draw up systems/workflow diagram to add to readme that makes it clear how I architectured the app</li>
-<li>Throttle on button submits?</li>
+
+
 <li>Debouncing on button suibmits</li>
 <li>save generated items to a user's account history to access in future? save images to an s3?</li>
 <li>refactor suspense and data streaming into loading components/states for better UX</li>
